@@ -86,7 +86,7 @@ jobs:
           mkdir -p docs
           
           # Move screenshot to screenshots directory
-          FILENAME=$(cat screenshot-filename.txt)
+          FILENAME=latest.png
           mv $FILENAME docs/
           
           # Add and commit
