@@ -68,7 +68,7 @@ jobs:
               );
               
               // Find the last element with actual content
-              const allElements = Array.from(document.querySelectorAll('*'));
+              const allElements = Array.from(document.querySelector('table:last-of-type'));
               let maxBottom = 0;
               
               allElements.forEach(el => {
@@ -81,7 +81,7 @@ jobs:
               
               return {
                 width: 540,
-                height: Math.ceil(maxBottom) + 20 // Add small padding
+                height: Math.ceil(maxBottom) + 15 // Add small padding
               };
             });
             
