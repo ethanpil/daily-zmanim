@@ -3,7 +3,7 @@ name: Daily Zmanim Screenshot
 on:
   schedule:
     # Runs at 4:00 AM UTC daily
-    - cron: '0 4 * * *'
+    - cron: '0 11 * * *'
   workflow_dispatch: # Allows manual trigger
 
 permissions:
