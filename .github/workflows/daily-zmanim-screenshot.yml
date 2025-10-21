@@ -66,7 +66,7 @@ jobs:
                 html.scrollHeight,
                 html.offsetHeight
               );
-              
+              /*
               // Find the last element with actual content
               const allElements = Array.from(document.querySelector('table:last-of-type'));
               let maxBottom = 0;
@@ -78,10 +78,14 @@ jobs:
                   maxBottom = bottom;
                 }
               });
+              */
+              
+              rect = document.querySelector('table:last-of-type');
+              const bottom = rect.bottom;
               
               return {
                 width: 540,
-                height: Math.ceil(maxBottom) + 15 // Add small padding
+                height: Math.ceil(maxBottom) + 10 // Add small padding
               };
             });
             
