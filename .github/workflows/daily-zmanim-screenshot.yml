@@ -50,21 +50,60 @@ jobs:
               timeout: 60000
             });
             
-            // Get the full page height
-            const bodyHandle = await page.$('body');
-            const boundingBox = await bodyHandle.boundingBox();
-            await bodyHandle.dispose();
+            // Get the actual content height (excluding extra whitespace)
+            const dimensions = await page.evaluate(() => {
+              const body = document.body;
+              const html = document.documentElement;
+              
+              // Get the actual content height
+              const height = Math.max(
+                body.scrollHeight,
+                body.offsetHeight,
+                html.clientHeight,
+                html.scrollHeight,
+                html.offsetHeight
+              );
+              
+              // Find the last element with actual content
+              const allElements = Array.from(document.querySelectorAll('*'));
+              let maxBottom = 0;
+              
+              allElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const bottom = rect.bottom + window.scrollY;
+                if (bottom > maxBottom) {
+                  maxBottom = bottom;
+                }
+              });
+              
+              return {
+                width: 540,
+                height: Math.ceil(maxBottom) + 20 // Add small padding
+              };
+            });
             
-            // Take screenshot of full page
+            // Set viewport to exact content size
+            await page.setViewport({
+              width: dimensions.width,
+              height: dimensions.height,
+              deviceScaleFactor: 2
+            });
+            
+            // Take screenshot
             const filename = 'latest.png';
             
             await page.screenshot({
               path: filename,
-              fullPage: true
+              clip: {
+                x: 0,
+                y: 0,
+                width: dimensions.width,
+                height: dimensions.height
+              }
             });
             
             console.log(`Screenshot saved as ${filename}`);
-            console.log(`Dimensions: 540px × ${Math.round(boundingBox.height)}px`);
+            console.log(`Dimensions: ${dimensions.width}px × ${dimensions.height}px`);
             
             await browser.close();
           })();
