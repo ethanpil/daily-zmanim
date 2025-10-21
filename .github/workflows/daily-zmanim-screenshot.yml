@@ -83,14 +83,14 @@ jobs:
           git config --local user.name "github-actions[bot]"
           
           # Create screenshots directory if it doesn't exist
-          mkdir -p screenshots
+          mkdir -p docs
           
           # Move screenshot to screenshots directory
           FILENAME=$(cat screenshot-filename.txt)
-          mv $FILENAME screenshots/
+          mv $FILENAME docs/
           
           # Add and commit
-          git add screenshots/
+          git add docs/
           git diff --quiet && git diff --staged --quiet || git commit -m "Add daily zmanim screenshot: $(date +%Y-%m-%d)"
           
       - name: Push changes
