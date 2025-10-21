@@ -81,7 +81,7 @@ jobs:
               
               return {
                 width: 540,
-                height: Math.ceil(bottom); // Add small padding
+                height: Math.ceil(bottom) // Add small padding
               };
             });
             
