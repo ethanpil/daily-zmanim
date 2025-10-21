@@ -115,7 +115,7 @@ jobs:
       - name: Auto Cropper
         run: |
           cargo install auto-image-cropper
-          ./target/release/autocrop -i latest.png -o latest.png
+          /home/runner/.cargo/bin/autocrop -i latest.png -o latest.png
         
       - name: Upload screenshot as artifact
         uses: actions/upload-artifact@v4
